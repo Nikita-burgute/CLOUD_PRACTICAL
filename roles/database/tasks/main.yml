@@ -1,0 +1,31 @@
+---
+- name: Install MariaDB
+  apt:
+    name: "{{ db_package }}"
+    state: present
+    update_cache: yes
+
+- name: Start and enable MariaDB
+  service:
+    name: "{{ db_service }}"
+    state: started
+    enabled: yes
+
+- name: Install Python MySQL dependency
+  apt:
+    name: python3-pymysql
+    state: present
+
+- name: Create application database
+  mysql_db:
+    name: "{{ db_name }}"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Create application database user
+  mysql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    priv: "{{ db_name }}.*:ALL"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock

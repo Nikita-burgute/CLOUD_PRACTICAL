@@ -1,0 +1,16 @@
+---
+- name: Configure Web Tier
+  hosts: web
+  become: yes
+  roles:
+    - role: webserver
+      tags: web
+  vars:
+    webserver_page_title: "My Custom Ansible Web Page"
+
+- name: Configure Database Tier
+  hosts: db
+  become: yes
+  roles:
+    - role: database
+      tags: db

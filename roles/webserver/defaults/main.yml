@@ -1,0 +1,5 @@
+---
+webserver_package: nginx
+webserver_service: nginx
+webserver_port: 80
+webserver_page_title: "Ansible Multi-Tier Application"
